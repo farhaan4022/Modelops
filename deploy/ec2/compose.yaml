@@ -1,0 +1,41 @@
+services:
+  inference:
+    image: vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90
+    container_name: modelops-qwen-vllm
+    restart: unless-stopped
+
+    shm_size: "1gb"
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    volumes:
+      - /opt/modelops/hf-cache:/root/.cache/huggingface
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    command:
+      - --model
+      - Qwen/Qwen2.5-1.5B-Instruct
+      - --revision
+      - "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+      - --tokenizer-revision
+      - "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+      - --dtype
+      - auto
+      - --max-model-len
+      - "2048"
+      - --max-num-seqs
+      - "4"
+      - --gpu-memory-utilization
+      - "0.70"
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
