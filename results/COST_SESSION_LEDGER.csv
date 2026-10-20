@@ -1,0 +1,1 @@
+session_id,date,platform,aws_region,resource_type,resource_name_or_id,instance_type,purchase_model,start_time_utc,end_time_utc,billable_hours,hourly_rate_usd,estimated_compute_cost_usd,estimated_other_cost_usd,estimated_total_cost_usd,experiment_run_ids,status,notes
