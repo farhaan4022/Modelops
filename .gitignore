@@ -1,0 +1,57 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+.terraformrc
+terraform.rc
+
+# Terraform variable files
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# AWS credentials / secrets
+.aws/
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+credentials
+secrets/
+private/
+
+# Hugging Face / model cache
+.cache/
+huggingface/
+model-cache/
+models/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Temporary experiment data
+tmp/
+temp/
+scratch/
+
+# Large local-only experiment artifacts
+results/raw-local/
+evidence/raw-local/
+
+# Logs
+*.log
+logs/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
