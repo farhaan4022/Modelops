@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ModelOps Chat</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: #202b3c;
+      background: #f3f5f9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e3e7ef;
+      padding: 18px 24px;
+    }
+
+    .header-inner, main {
+      width: min(900px, 100%);
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand { font-size: 20px; font-weight: 750; }
+    .subtitle { color: #6b7587; font-size: 13px; margin-top: 3px; }
+
+    .status {
+      color: #176b49;
+      background: #e9f7ef;
+      border-radius: 20px;
+      padding: 7px 11px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    main {
+      flex: 1;
+      padding: 26px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .intro { margin-bottom: 18px; }
+    h1 { font-size: 25px; margin: 0 0 7px; }
+    .intro p { color: #687386; margin: 0; line-height: 1.5; }
+
+    #chat {
+      flex: 1;
+      min-height: 300px;
+      max-height: calc(100vh - 310px);
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #e1e6ee;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .message { margin-bottom: 20px; }
+    .message:last-child { margin-bottom: 0; }
+
+    .role {
+      color: #687386;
+      font-size: 12px;
+      font-weight: 650;
+      margin-bottom: 7px;
+    }
+
+    .bubble {
+      width: fit-content;
+      max-width: 90%;
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: #f0f3f8;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .user { display: flex; flex-direction: column; align-items: flex-end; }
+    .user .bubble { background: #244d87; color: white; }
+    .user .role { align-self: flex-end; }
+    .error .bubble { color: #a42c2c; background: #fff0f0; }
+
+    form {
+      margin-top: 15px;
+      padding: 13px;
+      background: white;
+      border: 1px solid #e1e6ee;
+      border-radius: 15px;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 75px;
+      max-height: 180px;
+      resize: vertical;
+      border: 0;
+      outline: none;
+      font: inherit;
+      padding: 6px;
+      color: inherit;
+    }
+
+    .form-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 3px 0;
+    }
+
+    .hint { color: #7a8494; font-size: 12px; }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      background: #244d87;
+      color: white;
+      padding: 10px 19px;
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    button:disabled { opacity: .55; cursor: wait; }
+
+    footer {
+      text-align: center;
+      color: #7a8494;
+      font-size: 12px;
+      padding: 12px;
+    }
+
+    @media (max-width: 540px) {
+      header { padding: 15px; }
+      main { padding: 20px 12px 12px; }
+      #chat { padding: 15px; max-height: none; }
+      .status { font-size: 11px; }
+      .hint { max-width: 65%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="brand">ModelOps</div>
+        <div class="subtitle">Chat with your deployed model</div>
+      </div>
+      <div class="status">Qwen2.5 · NVIDIA L4</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>How can I help?</h1>
+      <p>Send a message to Qwen and receive a streamed response.</p>
+    </section>
+
+    <section id="chat" aria-live="polite" aria-label="Conversation">
+      <div class="message">
+        <div class="role">ModelOps</div>
+        <div class="bubble">Your chat is ready. Enter a message below to get started.</div>
+      </div>
+    </section>
+
+    <form id="chat-form">
+      <textarea id="prompt" placeholder="Write your message..."
+        aria-label="Your message" required></textarea>
+      <div class="form-bottom">
+        <span class="hint">Enter to send · Shift+Enter for a new line</span>
+        <button id="send" type="submit">Send</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>ModelOps · Qwen2.5-1.5B-Instruct</footer>
+
+  <script>
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("prompt");
+    const send = document.getElementById("send");
+    const chat = document.getElementById("chat");
+
+    const messages = [];
+    let busy = false;
+
+    function addMessage(role, content) {
+      const item = document.createElement("div");
+      item.className = "message " + role;
+
+      const label = document.createElement("div");
+      label.className = "role";
+      label.textContent = role === "user" ? "You" : "Qwen";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = content;
+
+      item.append(label, bubble);
+      chat.appendChild(item);
+      chat.scrollTop = chat.scrollHeight;
+
+      return bubble;
+    }
+
+    async function streamAnswer(response, bubble) {
+      if (!response.body) {
+        throw new Error("The response stream is unavailable.");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let answer = "";
+
+      function processLine(line) {
+        if (!line.startsWith("data:")) return;
+
+        const data = line.slice(5).trim();
+        if (!data || data === "[DONE]") return;
+
+        let event;
+        try {
+          event = JSON.parse(data);
+        } catch {
+          return;
+        }
+
+        const content = event.choices?.[0]?.delta?.content;
+        if (typeof content === "string") {
+          answer += content;
+          bubble.textContent = answer;
+          chat.scrollTop = chat.scrollHeight;
+        }
+      }
+
+      while (true) {
+        const { value, done } = await reader.read();
+
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split(/\r?\n/);
+        buffer = lines.pop() || "";
+
+        for (const line of lines) processLine(line);
+      }
+
+      buffer += decoder.decode();
+      if (buffer.trim()) processLine(buffer);
+
+      if (!answer) throw new Error("The model returned no text.");
+
+      return answer;
+    }
+
+    async function sendMessage() {
+      const prompt = input.value.trim();
+      if (!prompt || busy) return;
+
+      busy = true;
+      send.disabled = true;
+      input.disabled = true;
+
+      addMessage("user", prompt);
+      messages.push({ role: "user", content: prompt });
+      input.value = "";
+
+      const bubble = addMessage("assistant", "Thinking...");
+
+      try {
+        const response = await fetch("/api/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "Qwen/Qwen2.5-1.5B-Instruct",
+            messages: messages,
+            temperature: 0.2,
+            max_tokens: 256,
+            stream: true
+          })
+        });
+
+        if (!response.ok) {
+          const detail = (await response.text()).slice(0, 300);
+          throw new Error("HTTP " + response.status + ": " + detail);
+        }
+
+        bubble.textContent = "";
+        const answer = await streamAnswer(response, bubble);
+        messages.push({ role: "assistant", content: answer });
+      } catch (error) {
+        messages.pop();
+        bubble.parentElement.classList.add("error");
+        bubble.textContent = "Request failed: " + error.message;
+      } finally {
+        busy = false;
+        send.disabled = false;
+        input.disabled = false;
+        input.focus();
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      sendMessage();
+    });
+
+    input.addEventListener("keydown", event => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  </script>
+</body>
+</html>
