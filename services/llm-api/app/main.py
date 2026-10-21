@@ -7,6 +7,7 @@ import httpx
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 from starlette.background import BackgroundTask
+from app.guardrails import PublicAPIGuardrails
 
 
 VLLM_BASE_URL = os.getenv(
@@ -63,6 +64,7 @@ app = FastAPI(
     description="API gateway for the ModelOps vLLM inference service.",
     lifespan=lifespan,
 )
+app.add_middleware(PublicAPIGuardrails)
 
 
 def get_http_client(request: Request) -> httpx.AsyncClient:

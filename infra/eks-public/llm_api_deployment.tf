@@ -30,7 +30,7 @@ resource "kubernetes_deployment_v1" "modelops_llm_api" {
       spec {
         container {
           name              = "fastapi"
-          image             = "743502211832.dkr.ecr.us-east-1.amazonaws.com/modelops-llm-api:94396c5a5b3e"
+          image             = "743502211832.dkr.ecr.us-east-1.amazonaws.com/modelops-llm-api:guardrails-20261021T095120Z"
           image_pull_policy = "IfNotPresent"
 
           port {
