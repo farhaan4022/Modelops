@@ -6,9 +6,7 @@ locals {
   }
 }
 
-# -----------------------------
-# Dedicated VPC and networking
-# -----------------------------
+# Dedicated EKS VPC and networking
 
 resource "aws_vpc" "eks" {
   cidr_block           = "10.80.0.0/16"
@@ -52,6 +50,43 @@ resource "aws_subnet" "b" {
   }
 }
 
+
+resource "aws_subnet" "c" {
+  vpc_id                  = aws_vpc.eks.id
+  cidr_block              = "10.80.3.0/24"
+  availability_zone       = "us-east-1c"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name                     = "modelops-eks-subnet-c"
+    "kubernetes.io/role/elb" = "1"
+  }
+}
+
+resource "aws_subnet" "d" {
+  vpc_id                  = aws_vpc.eks.id
+  cidr_block              = "10.80.4.0/24"
+  availability_zone       = "us-east-1d"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name                     = "modelops-eks-subnet-d"
+    "kubernetes.io/role/elb" = "1"
+  }
+}
+
+resource "aws_subnet" "f" {
+  vpc_id                  = aws_vpc.eks.id
+  cidr_block              = "10.80.5.0/24"
+  availability_zone       = "us-east-1f"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name                     = "modelops-eks-subnet-f"
+    "kubernetes.io/role/elb" = "1"
+  }
+}
+
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.eks.id
 
@@ -76,9 +111,23 @@ resource "aws_route_table_association" "b" {
   route_table_id = aws_route_table.public.id
 }
 
-# -----------------------------
-# EKS cluster IAM role
-# -----------------------------
+
+resource "aws_route_table_association" "c" {
+  subnet_id      = aws_subnet.c.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "d" {
+  subnet_id      = aws_subnet.d.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "f" {
+  subnet_id      = aws_subnet.f.id
+  route_table_id = aws_route_table.public.id
+}
+
+# EKS control-plane IAM role
 
 resource "aws_iam_role" "cluster" {
   name = "modelops-eks-cluster-role"
@@ -100,9 +149,7 @@ resource "aws_iam_role_policy_attachment" "cluster" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-# -----------------------------
-# EKS cluster
-# -----------------------------
+# EKS control plane
 
 resource "aws_eks_cluster" "gpu" {
   name     = var.cluster_name
@@ -137,8 +184,7 @@ resource "aws_eks_cluster" "gpu" {
   }
 }
 
-# Allow the existing AWS identity to administer
-# this specific EKS cluster.
+# Cluster administrator access
 
 resource "aws_eks_access_entry" "admin" {
   cluster_name  = aws_eks_cluster.gpu.name
@@ -156,9 +202,7 @@ resource "aws_eks_access_policy_association" "admin" {
   }
 }
 
-# -----------------------------
 # GPU worker IAM role
-# -----------------------------
 
 resource "aws_iam_role" "node" {
   name = "modelops-eks-gpu-node-role"
@@ -190,9 +234,8 @@ resource "aws_iam_role_policy_attachment" "cni" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-# -----------------------------
-# Single NVIDIA L4 GPU worker
-# -----------------------------
+# Single NVIDIA L4 worker.
+# Capacity recovery: use only us-east-1b.
 
 resource "aws_eks_node_group" "gpu" {
   cluster_name    = aws_eks_cluster.gpu.name
@@ -200,8 +243,10 @@ resource "aws_eks_node_group" "gpu" {
   node_role_arn   = aws_iam_role.node.arn
 
   subnet_ids = [
-    aws_subnet.a.id,
-    aws_subnet.b.id
+    aws_subnet.b.id,
+    aws_subnet.c.id,
+    aws_subnet.d.id,
+    aws_subnet.f.id
   ]
 
   instance_types = ["g6.xlarge"]
