@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"vllm:num_requests_running","container":"vllm","endpoint":"http","engine":"0","instance":"10.80.4.66:8000","job":"qwen-vllm","model_name":"Qwen/Qwen2.5-1.5B-Instruct","namespace":"modelops","pod":"qwen-vllm-fdd696bd8-rdplb","service":"qwen-vllm"},"value":[1792560523.237,"0"]}]}}
