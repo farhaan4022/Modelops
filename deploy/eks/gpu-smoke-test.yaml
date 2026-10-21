@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpu-smoke-test
+  namespace: modelops
+  labels:
+    app.kubernetes.io/part-of: modelops
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
+  template:
+    metadata:
+      labels:
+        app: gpu-smoke-test
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        workload: gpu-inference
+      containers:
+        - name: nvidia-smi
+          image: nvidia/cuda:12.9.1-base-ubuntu22.04
+          command: ["nvidia-smi"]
+          resources:
+            requests:
+              nvidia.com/gpu: 1
+            limits:
+              nvidia.com/gpu: 1
