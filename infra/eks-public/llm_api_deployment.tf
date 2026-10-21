@@ -84,7 +84,7 @@ resource "kubernetes_service_v1" "modelops_llm_api" {
   }
 
   spec {
-    type = "ClusterIP"
+    type = "NodePort"
 
     selector = {
       app = "modelops-llm-api"
@@ -94,6 +94,7 @@ resource "kubernetes_service_v1" "modelops_llm_api" {
       name        = "http"
       port        = 8000
       target_port = 8000
+      node_port = 30081
       protocol    = "TCP"
     }
   }
