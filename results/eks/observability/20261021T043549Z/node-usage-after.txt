@@ -1,0 +1,2 @@
+NAME                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-10-80-4-220.ec2.internal   146m         3%       8138Mi          56%         

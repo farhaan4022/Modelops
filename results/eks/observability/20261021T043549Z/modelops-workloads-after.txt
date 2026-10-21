@@ -1,0 +1,12 @@
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES                                                                                     SELECTOR
+deployment.apps/modelops-chat-ui   1/1     1            1           101m   web          nginx:alpine                                                                               app=modelops-chat-ui
+deployment.apps/qwen-vllm          1/1     1            1           160m   vllm         vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90   app=qwen-vllm
+
+NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE    SELECTOR
+service/modelops-chat-ui   ClusterIP   172.20.212.221   <none>        80/TCP     101m   app=modelops-chat-ui
+service/qwen-vllm          ClusterIP   172.20.101.142   <none>        8000/TCP   160m   app=qwen-vllm
+
+NAME                                    READY   STATUS      RESTARTS   AGE    IP            NODE                          NOMINATED NODE   READINESS GATES
+pod/gpu-smoke-test-n8gqx                0/1     Completed   0          161m   10.80.4.60    ip-10-80-4-220.ec2.internal   <none>           <none>
+pod/modelops-chat-ui-747895c689-9fvlp   1/1     Running     0          66m    10.80.4.222   ip-10-80-4-220.ec2.internal   <none>           <none>
+pod/qwen-vllm-fdd696bd8-rdplb           1/1     Running     0          20m    10.80.4.66    ip-10-80-4-220.ec2.internal   <none>           <none>

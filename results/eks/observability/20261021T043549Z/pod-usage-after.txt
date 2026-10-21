@@ -1,0 +1,3 @@
+NAME                                CPU(cores)   MEMORY(bytes)   
+modelops-chat-ui-747895c689-9fvlp   1m           4Mi             
+qwen-vllm-fdd696bd8-rdplb           13m          5840Mi          

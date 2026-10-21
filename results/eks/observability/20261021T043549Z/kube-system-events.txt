@@ -1,0 +1,8 @@
+LAST SEEN   TYPE     REASON              OBJECT                                 MESSAGE
+41s         Normal   Scheduled           pod/metrics-server-687f9dc499-7z9p8    Successfully assigned kube-system/metrics-server-687f9dc499-7z9p8 to ip-10-80-4-220.ec2.internal
+41s         Normal   Pulling             pod/metrics-server-687f9dc499-7z9p8    Pulling image "registry.k8s.io/metrics-server/metrics-server:v0.9.0"
+41s         Normal   SuccessfulCreate    replicaset/metrics-server-687f9dc499   Created pod: metrics-server-687f9dc499-7z9p8
+41s         Normal   ScalingReplicaSet   deployment/metrics-server              Scaled up replica set metrics-server-687f9dc499 from 0 to 1
+40s         Normal   Pulled              pod/metrics-server-687f9dc499-7z9p8    Successfully pulled image "registry.k8s.io/metrics-server/metrics-server:v0.9.0" in 993ms (993ms including waiting). Image size: 23258428 bytes.
+40s         Normal   Created             pod/metrics-server-687f9dc499-7z9p8    Container created
+39s         Normal   Started             pod/metrics-server-687f9dc499-7z9p8    Container started
