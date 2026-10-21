@@ -17,7 +17,7 @@ ModelOps is a portfolio project that deploys **Qwen2.5-1.5B-Instruct** with **vL
 ## 2) Simple architecture diagram
 
 <p align="center">
-  <img src="assets/architecture-simple.png" alt="Simple ModelOps architecture diagram" width="100%" />
+  <img src="assets/architecture-simple.gif" alt="Simple ModelOps architecture diagram" width="100%" />
 </p>
 
 ### Flow summary
@@ -72,7 +72,7 @@ The ALB target group for the chat UI shows **1 healthy target**, confirming the 
   <img src="assets/chat-ui-success.png" alt="Working ModelOps chat UI" width="100%" />
 </p>
 
-The public-facing chat UI successfully serves a prompt/response cycle (`tell me a joke`), showing an end-to-end working application path.
+The captured chat UI successfully completes a prompt/response cycle (`tell me a joke`).
 
 ---
 
@@ -146,7 +146,7 @@ The public chat API was tested for four important controls:
   <img src="assets/guardrail-token-limit.png" alt="Token limit test" width="45%" />
 </p>
 
-These tests show that the deployment is not only functional, but also **protected against oversized or abusive traffic patterns**.
+These test runs demonstrate the configured limits returning the expected HTTP status codes for the tested requests.
 
 ---
 
@@ -188,7 +188,7 @@ The captured point-in-time Prometheus queries show:
 - **Framebuffer memory used**: `DCGM_FI_DEV_FB_USED = 15542`
 - **GPU utilization**: `DCGM_FI_DEV_GPU_UTIL = 0`
 
-This confirms that **GPU metrics were being collected and queried successfully**.
+The screenshots show that these GPU metrics were being collected and queried successfully at the captured time.
 
 ---
 
@@ -242,56 +242,3 @@ A successful `/v1/chat/completions` request returned a valid response from **Qwe
 - **Prometheus/Grafana/DCGM observability** was wired in and verified with actual GPU metrics.
 - Controlled benchmark runs show that **EKS can closely match EC2** in a paired setup, while separate exploratory runs show how easily benchmarking can diverge when conditions differ.
 - The project includes both **infrastructure evidence** and **application-level proof** of success.
-
----
-
-## 10) Cost-per-token note
-
-**Cost per token is not finalized in this README** because the screenshots currently available do not provide a clean pairing of attributed AWS cost with the exact benchmark token totals.
-
-When you add billing figures later, use:
-
-```text
-cost per 1,000 output tokens = attributable AWS cost / total output tokens × 1,000
-```
-
-Recommended cost components:
-- GPU instance cost
-- EKS control plane cost
-- Load balancer cost
-- storage / EBS
-- data transfer
-- monitoring overhead, if you want full system cost attribution
-
----
-
-## 11) Files included in this package
-
-```text
-modelops-readme-package/
-├── README.md
-└── assets/
-    ├── architecture-simple.png
-    ├── eks-cluster-overview.png
-    ├── eks-node-group.png
-    ├── alb-target-group-healthy.png
-    ├── chat-ui-success.png
-    ├── guardrail-concurrency-limit.png
-    ├── guardrail-rate-limit.png
-    ├── guardrail-body-size-limit.png
-    ├── guardrail-token-limit.png
-    ├── prometheus-target-health.png
-    ├── prometheus-alerts.png
-    ├── gpu-metric-temperature.png
-    ├── gpu-metric-memory-used.png
-    ├── gpu-metric-utilization.png
-    ├── benchmark-ec2-vs-eks-near-match.png
-    ├── benchmark-ec2-vs-eks-exploratory-gap.png
-    ├── benchmark-first-inference-ec2.png
-    ├── ec2-baseline-summary.png
-    ├── ec2-chat-completion-smoke-test.png
-    ├── ec2-docker-container.png
-    ├── ec2-nvidia-smi.png
-    └── ec2-instance-console.png
-```
-
