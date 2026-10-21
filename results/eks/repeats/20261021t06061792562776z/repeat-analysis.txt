@@ -1,0 +1,86 @@
+EKS BENCHMARK REPEATABILITY ANALYSIS
+Evidence directory: results/eks/repeats/20261021t06061792562776z
+Summary CSV files: 3
+
+FILE: repeat1/20261021T060638Z-summary.csv
+COLUMNS: concurrency, requests, successful, failed, duration_s, requests_per_s, output_tokens_per_s, mean_latency_s, p95_latency_s, mean_ttft_s, p95_ttft_s, peak_running, peak_waiting
+ROW: {'concurrency': '1', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '30.755', 'requests_per_s': '0.78', 'output_tokens_per_s': '74.914', 'mean_latency_s': '1.281', 'p95_latency_s': '1.284', 'mean_ttft_s': '0.022', 'p95_ttft_s': '0.023', 'peak_running': '1.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '4', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.961', 'requests_per_s': '3.015', 'output_tokens_per_s': '289.402', 'mean_latency_s': '1.326', 'p95_latency_s': '1.331', 'mean_ttft_s': '0.039', 'p95_ttft_s': '0.044', 'peak_running': '4.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '8', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.945', 'requests_per_s': '3.021', 'output_tokens_per_s': '289.98', 'mean_latency_s': '2.426', 'p95_latency_s': '2.659', 'mean_ttft_s': '1.136', 'p95_ttft_s': '1.368', 'peak_running': '4.0', 'peak_waiting': '4.0'}
+ROW: {'concurrency': '16', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.954', 'requests_per_s': '3.017', 'output_tokens_per_s': '289.664', 'mean_latency_s': '3.975', 'p95_latency_s': '5.302', 'mean_ttft_s': '2.684', 'p95_ttft_s': '4.01', 'peak_running': '4.0', 'peak_waiting': '12.0'}
+
+FILE: repeat2/20261021T060738Z-summary.csv
+COLUMNS: concurrency, requests, successful, failed, duration_s, requests_per_s, output_tokens_per_s, mean_latency_s, p95_latency_s, mean_ttft_s, p95_ttft_s, peak_running, peak_waiting
+ROW: {'concurrency': '1', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '30.806', 'requests_per_s': '0.779', 'output_tokens_per_s': '74.79', 'mean_latency_s': '1.283', 'p95_latency_s': '1.286', 'mean_ttft_s': '0.021', 'p95_ttft_s': '0.025', 'peak_running': '1.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '4', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.953', 'requests_per_s': '3.018', 'output_tokens_per_s': '289.687', 'mean_latency_s': '1.325', 'p95_latency_s': '1.334', 'mean_ttft_s': '0.035', 'p95_ttft_s': '0.044', 'peak_running': '4.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '8', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.942', 'requests_per_s': '3.022', 'output_tokens_per_s': '290.099', 'mean_latency_s': '2.425', 'p95_latency_s': '2.659', 'mean_ttft_s': '1.133', 'p95_ttft_s': '1.366', 'peak_running': '4.0', 'peak_waiting': '4.0'}
+ROW: {'concurrency': '16', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.952', 'requests_per_s': '3.018', 'output_tokens_per_s': '289.741', 'mean_latency_s': '3.975', 'p95_latency_s': '5.3', 'mean_ttft_s': '2.682', 'p95_ttft_s': '4.007', 'peak_running': '4.0', 'peak_waiting': '12.0'}
+
+FILE: repeat3/20261021T060838Z-summary.csv
+COLUMNS: concurrency, requests, successful, failed, duration_s, requests_per_s, output_tokens_per_s, mean_latency_s, p95_latency_s, mean_ttft_s, p95_ttft_s, peak_running, peak_waiting
+ROW: {'concurrency': '1', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '30.845', 'requests_per_s': '0.778', 'output_tokens_per_s': '74.695', 'mean_latency_s': '1.285', 'p95_latency_s': '1.288', 'mean_ttft_s': '0.021', 'p95_ttft_s': '0.024', 'peak_running': '1.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '4', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.972', 'requests_per_s': '3.01', 'output_tokens_per_s': '288.999', 'mean_latency_s': '1.328', 'p95_latency_s': '1.338', 'mean_ttft_s': '0.035', 'p95_ttft_s': '0.044', 'peak_running': '4.0', 'peak_waiting': '0.0'}
+ROW: {'concurrency': '8', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.952', 'requests_per_s': '3.018', 'output_tokens_per_s': '289.727', 'mean_latency_s': '2.428', 'p95_latency_s': '2.658', 'mean_ttft_s': '1.133', 'p95_ttft_s': '1.363', 'peak_running': '4.0', 'peak_waiting': '4.0'}
+ROW: {'concurrency': '16', 'requests': '24', 'successful': '24', 'failed': '0', 'duration_s': '7.966', 'requests_per_s': '3.013', 'output_tokens_per_s': '289.226', 'mean_latency_s': '3.982', 'p95_latency_s': '5.309', 'mean_ttft_s': '2.687', 'p95_ttft_s': '4.013', 'peak_running': '4.0', 'peak_waiting': '12.0'}
+
+=== AGGREGATED NUMERIC METRICS BY CONCURRENCY ===
+CONCURRENCY = 1
+  duration_s: mean=30.802, min=30.755, max=30.845, observations=3
+  failed: mean=0, min=0, max=0, observations=3
+  mean_latency_s: mean=1.283, min=1.281, max=1.285, observations=3
+  mean_ttft_s: mean=0.0213333, min=0.021, max=0.022, observations=3
+  output_tokens_per_s: mean=74.7997, min=74.695, max=74.914, observations=3
+  p95_latency_s: mean=1.286, min=1.284, max=1.288, observations=3
+  p95_ttft_s: mean=0.024, min=0.023, max=0.025, observations=3
+  peak_running: mean=1, min=1, max=1, observations=3
+  peak_waiting: mean=0, min=0, max=0, observations=3
+  requests: mean=24, min=24, max=24, observations=3
+  requests_per_s: mean=0.779, min=0.778, max=0.78, observations=3
+  successful: mean=24, min=24, max=24, observations=3
+
+CONCURRENCY = 4
+  duration_s: mean=7.962, min=7.953, max=7.972, observations=3
+  failed: mean=0, min=0, max=0, observations=3
+  mean_latency_s: mean=1.32633, min=1.325, max=1.328, observations=3
+  mean_ttft_s: mean=0.0363333, min=0.035, max=0.039, observations=3
+  output_tokens_per_s: mean=289.363, min=288.999, max=289.687, observations=3
+  p95_latency_s: mean=1.33433, min=1.331, max=1.338, observations=3
+  p95_ttft_s: mean=0.044, min=0.044, max=0.044, observations=3
+  peak_running: mean=4, min=4, max=4, observations=3
+  peak_waiting: mean=0, min=0, max=0, observations=3
+  requests: mean=24, min=24, max=24, observations=3
+  requests_per_s: mean=3.01433, min=3.01, max=3.018, observations=3
+  successful: mean=24, min=24, max=24, observations=3
+
+CONCURRENCY = 8
+  duration_s: mean=7.94633, min=7.942, max=7.952, observations=3
+  failed: mean=0, min=0, max=0, observations=3
+  mean_latency_s: mean=2.42633, min=2.425, max=2.428, observations=3
+  mean_ttft_s: mean=1.134, min=1.133, max=1.136, observations=3
+  output_tokens_per_s: mean=289.935, min=289.727, max=290.099, observations=3
+  p95_latency_s: mean=2.65867, min=2.658, max=2.659, observations=3
+  p95_ttft_s: mean=1.36567, min=1.363, max=1.368, observations=3
+  peak_running: mean=4, min=4, max=4, observations=3
+  peak_waiting: mean=4, min=4, max=4, observations=3
+  requests: mean=24, min=24, max=24, observations=3
+  requests_per_s: mean=3.02033, min=3.018, max=3.022, observations=3
+  successful: mean=24, min=24, max=24, observations=3
+
+CONCURRENCY = 16
+  duration_s: mean=7.95733, min=7.952, max=7.966, observations=3
+  failed: mean=0, min=0, max=0, observations=3
+  mean_latency_s: mean=3.97733, min=3.975, max=3.982, observations=3
+  mean_ttft_s: mean=2.68433, min=2.682, max=2.687, observations=3
+  output_tokens_per_s: mean=289.544, min=289.226, max=289.741, observations=3
+  p95_latency_s: mean=5.30367, min=5.3, max=5.309, observations=3
+  p95_ttft_s: mean=4.01, min=4.007, max=4.013, observations=3
+  peak_running: mean=4, min=4, max=4, observations=3
+  peak_waiting: mean=12, min=12, max=12, observations=3
+  requests: mean=24, min=24, max=24, observations=3
+  requests_per_s: mean=3.016, min=3.013, max=3.018, observations=3
+  successful: mean=24, min=24, max=24, observations=3
+
+=== DATA COMPLETENESS ===
+Rows read: 12
+Summary files discovered: 3
+Review the rows and column names before drawing final conclusions.

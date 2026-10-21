@@ -1,0 +1,6 @@
+NAME                                                      READY   STATUS    RESTARTS   AGE
+dcgm-exporter-nd8zv                                       1/1     Running   0          81m
+modelops-monitoring-grafana-5b484959fd-lcvbs              3/3     Running   0          60m
+modelops-monitoring-kube-p-operator-665777c6f8-9r84g      1/1     Running   0          60m
+modelops-monitoring-kube-state-metrics-55ffc56fd5-n48f9   1/1     Running   0          60m
+prometheus-modelops-monitoring-kube-p-prometheus-0        2/2     Running   0          60m

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: modelops-benchmark-client-20261021t06061792562776z
+  namespace: modelops
+  labels:
+    app: modelops-benchmark-client
+spec:
+  restartPolicy: Never
+  containers:
+    - name: benchmark
+      image: python:3.12-slim
+      imagePullPolicy: IfNotPresent
+      command: ["sh", "-c", "sleep 3600"]
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: "1"
+          memory: 512Mi
+      volumeMounts:
+        - name: benchmark-script
+          mountPath: /bench
+          readOnly: true
+        - name: benchmark-results
+          mountPath: /results
+  volumes:
+    - name: benchmark-script
+      configMap:
+        name: modelops-benchmark-script-20261021t06061792562776z
+    - name: benchmark-results
+      emptyDir: {}

@@ -1,0 +1,12 @@
+usage: benchmark.py [-h] [--url URL]
+                    [--concurrency CONCURRENCY [CONCURRENCY ...]]
+                    [--requests REQUESTS] [--max-tokens MAX_TOKENS]
+                    [--output OUTPUT]
+
+options:
+  -h, --help            show this help message and exit
+  --url URL
+  --concurrency CONCURRENCY [CONCURRENCY ...]
+  --requests REQUESTS
+  --max-tokens MAX_TOKENS
+  --output OUTPUT
