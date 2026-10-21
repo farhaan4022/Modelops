@@ -1,0 +1,41 @@
+Dashboard: ModelOps - EKS GPU Inference
+Panel count: 8
+
+PANEL: GPU Utilization (%)
+  PASS: Query succeeded; series: 1
+  Expression: DCGM_FI_DEV_GPU_UTIL{namespace="modelops",pod=~"qwen-vllm.*"}
+
+PANEL: GPU Framebuffer Used (MiB)
+  PASS: Query succeeded; series: 1
+  Expression: DCGM_FI_DEV_FB_USED{namespace="modelops",pod=~"qwen-vllm.*"}
+
+PANEL: GPU Temperature
+  PASS: Query succeeded; series: 1
+  Expression: DCGM_FI_DEV_GPU_TEMP{namespace="modelops",pod=~"qwen-vllm.*"}
+
+PANEL: vLLM Running Requests
+  PASS: Query succeeded; series: 1
+  Expression: vllm:num_requests_running
+
+PANEL: vLLM Waiting Requests
+  PASS: Query succeeded; series: 1
+  Expression: vllm:num_requests_waiting
+
+PANEL: Generated Tokens per Second
+  PASS: Query succeeded; series: 1
+  Expression: rate(vllm:generation_tokens_total[5m])
+
+PANEL: P95 Time to First Token
+  PASS: Query succeeded; series: 1
+  Expression: histogram_quantile(0.95, sum by (le) (rate(vllm:time_to_first_token_seconds_bucket[5m])))
+
+PANEL: Successful Requests per Second
+  PASS: Query succeeded; series: 1
+  Expression: sum(rate(vllm:request_success_total[5m]))
+
+=== SUMMARY ===
+Queries with data: 8
+Queries returning no data: 0
+Queries with errors: 0
+Queries needing review: 0
+QUERY_VALIDATION_FINISHED

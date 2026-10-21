@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: dcgm-exporter
+  namespace: gpu-monitoring
+  labels:
+    release: modelops-monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+      - gpu-monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: dcgm-exporter
+      app.kubernetes.io/instance: dcgm-exporter
+      app.kubernetes.io/name: dcgm-exporter
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
+      honorLabels: true
