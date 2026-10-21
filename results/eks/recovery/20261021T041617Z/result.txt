@@ -1,0 +1,7 @@
+Run started: 2026-10-21T09:46:17+05:30
+Context: arn:aws:eks:us-east-1:743502211832:cluster/modelops-gpu
+Initial pod: qwen-vllm-fdd696bd8-hw4qs
+Recovery duration: 93 seconds
+Recovery completed: 2026-10-21T09:47:59+05:30
+RECOVERY_TEST=PASS
+INFERENCE_TEST=PASS

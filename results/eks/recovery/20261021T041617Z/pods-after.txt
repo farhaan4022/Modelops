@@ -1,0 +1,2 @@
+NAME                        READY   STATUS    RESTARTS   AGE   IP           NODE                          NOMINATED NODE   READINESS GATES
+qwen-vllm-fdd696bd8-rdplb   1/1     Running   0          94s   10.80.4.66   ip-10-80-4-220.ec2.internal   <none>           <none>
