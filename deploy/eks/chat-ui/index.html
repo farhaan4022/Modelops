@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
   <title>ModelOps Chat</title>
+
   <style>
     :root {
-      color-scheme: light;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
       color: #202b3c;
       background: #f3f5f9;
     }
@@ -24,58 +25,57 @@
 
     header {
       background: #fff;
-      border-bottom: 1px solid #e3e7ef;
-      padding: 18px 24px;
-    }
-
-    .header-inner, main {
-      width: min(900px, 100%);
-      margin: 0 auto;
+      border-bottom: 1px solid #e1e6ee;
+      padding: 16px 22px;
     }
 
     .header-inner {
+      max-width: 1000px;
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
 
     .brand { font-size: 20px; font-weight: 750; }
     .subtitle { color: #6b7587; font-size: 13px; margin-top: 3px; }
 
     .status {
-      color: #176b49;
-      background: #e9f7ef;
-      border-radius: 20px;
       padding: 7px 11px;
+      border-radius: 20px;
+      background: #e9f7ef;
+      color: #176b49;
       font-size: 12px;
       white-space: nowrap;
     }
 
     main {
-      flex: 1;
-      padding: 26px 18px 18px;
+      width: min(850px, 100%);
+      margin: 0 auto;
+      padding: 25px 18px 18px;
       display: flex;
+      flex: 1;
       flex-direction: column;
       min-height: 0;
     }
 
-    .intro { margin-bottom: 18px; }
+    .intro { margin-bottom: 17px; }
     h1 { font-size: 25px; margin: 0 0 7px; }
     .intro p { color: #687386; margin: 0; line-height: 1.5; }
 
     #chat {
       flex: 1;
       min-height: 300px;
-      max-height: calc(100vh - 310px);
+      max-height: calc(100vh - 320px);
       overflow-y: auto;
+      padding: 19px;
       background: #fff;
       border: 1px solid #e1e6ee;
-      border-radius: 15px;
-      padding: 20px;
+      border-radius: 14px;
     }
 
-    .message { margin-bottom: 20px; }
+    .message { margin-bottom: 21px; }
     .message:last-child { margin-bottom: 0; }
 
     .role {
@@ -87,33 +87,128 @@
 
     .bubble {
       width: fit-content;
-      max-width: 90%;
+      max-width: 100%;
       padding: 12px 15px;
       border-radius: 12px;
       background: #f0f3f8;
       line-height: 1.65;
-      white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
-    .user { display: flex; flex-direction: column; align-items: flex-end; }
-    .user .bubble { background: #244d87; color: white; }
+    .user {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
     .user .role { align-self: flex-end; }
-    .error .bubble { color: #a42c2c; background: #fff0f0; }
+    .user .bubble { background: #244d87; color: #fff; }
+    .error .bubble { background: #fff0f0; color: #a42c2c; }
+
+    .markdown > :first-child { margin-top: 0; }
+    .markdown > :last-child { margin-bottom: 0; }
+    .markdown h1, .markdown h2, .markdown h3 {
+      font-size: 1.05em;
+      margin: 17px 0 8px;
+    }
+
+    .markdown p { margin: 9px 0; }
+    .markdown ul, .markdown ol { padding-left: 23px; }
+    .markdown li { margin: 4px 0; }
+    .markdown blockquote {
+      margin: 10px 0;
+      padding-left: 12px;
+      border-left: 3px solid #b7c5d9;
+      color: #596779;
+    }
+
+    .markdown code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: .91em;
+      background: #e6ebf2;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .code-block {
+      margin: 12px 0;
+      overflow: hidden;
+      border: 1px solid #dce2eb;
+      border-radius: 9px;
+      background: #f7f8fa;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      background: #e9edf3;
+      color: #586579;
+      font-size: 12px;
+    }
+
+    .markdown pre {
+      margin: 0;
+      padding: 13px;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .markdown pre code {
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      color: #263448;
+      white-space: pre;
+    }
+
+    .message-tools {
+      display: flex;
+      gap: 8px;
+      margin-top: 7px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 15px;
+      background: #244d87;
+      color: white;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #edf1f6;
+      color: #34445a;
+    }
+
+    button.small {
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: wait;
+    }
 
     form {
-      margin-top: 15px;
-      padding: 13px;
-      background: white;
+      margin-top: 13px;
+      padding: 12px;
+      background: #fff;
       border: 1px solid #e1e6ee;
-      border-radius: 15px;
+      border-radius: 13px;
     }
 
     textarea {
       display: block;
       width: 100%;
-      min-height: 75px;
-      max-height: 180px;
+      min-height: 80px;
+      max-height: 200px;
       resize: vertical;
       border: 0;
       outline: none;
@@ -124,43 +219,34 @@
 
     .form-bottom {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       padding: 7px 3px 0;
     }
 
+    .form-actions { display: flex; gap: 8px; }
     .hint { color: #7a8494; font-size: 12px; }
 
-    button {
-      border: 0;
-      border-radius: 9px;
-      background: #244d87;
-      color: white;
-      padding: 10px 19px;
-      font: inherit;
-      font-weight: 650;
-      cursor: pointer;
-    }
-
-    button:disabled { opacity: .55; cursor: wait; }
-
     footer {
+      padding: 12px;
       text-align: center;
       color: #7a8494;
       font-size: 12px;
-      padding: 12px;
     }
 
     @media (max-width: 540px) {
-      header { padding: 15px; }
-      main { padding: 20px 12px 12px; }
-      #chat { padding: 15px; max-height: none; }
+      header { padding: 14px; }
+      main { padding: 19px 11px 12px; }
+      #chat { padding: 13px; max-height: none; }
       .status { font-size: 11px; }
-      .hint { max-width: 65%; }
+      .hint { max-width: 100%; }
+      .bubble { width: auto; }
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="header-inner">
@@ -179,18 +265,26 @@
     </section>
 
     <section id="chat" aria-live="polite" aria-label="Conversation">
-      <div class="message">
+      <article class="message">
         <div class="role">ModelOps</div>
-        <div class="bubble">Your chat is ready. Enter a message below to get started.</div>
-      </div>
+        <div class="bubble">
+          Your chat is ready. Enter a message below to get started.
+        </div>
+      </article>
     </section>
 
     <form id="chat-form">
       <textarea id="prompt" placeholder="Write your message..."
         aria-label="Your message" required></textarea>
+
       <div class="form-bottom">
         <span class="hint">Enter to send · Shift+Enter for a new line</span>
-        <button id="send" type="submit">Send</button>
+        <div class="form-actions">
+          <button id="clear" class="secondary" type="button">
+            Clear chat
+          </button>
+          <button id="send" type="submit">Send</button>
+        </div>
       </div>
     </form>
   </main>
@@ -201,13 +295,134 @@
     const form = document.getElementById("chat-form");
     const input = document.getElementById("prompt");
     const send = document.getElementById("send");
+    const clear = document.getElementById("clear");
     const chat = document.getElementById("chat");
 
     const messages = [];
     let busy = false;
 
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function renderInline(value) {
+      return escapeHtml(value)
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+        .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+    }
+
+    function renderMarkdown(value) {
+      const lines = value.split(/\r?\n/);
+      const html = [];
+      let i = 0;
+
+      function isBlockStart(line) {
+        return /^```/.test(line.trim()) ||
+          /^#{1,3}\s/.test(line) ||
+          /^\s*[-*]\s+/.test(line) ||
+          /^\s*\d+\.\s+/.test(line) ||
+          /^\s*>\s?/.test(line);
+      }
+
+      while (i < lines.length) {
+        const line = lines[i];
+
+        if (!line.trim()) {
+          i++;
+          continue;
+        }
+
+        if (/^```/.test(line.trim())) {
+          const language = line.trim().slice(3).trim();
+          const code = [];
+          i++;
+
+          while (i < lines.length && !/^```\s*$/.test(lines[i].trim())) {
+            code.push(lines[i++]);
+          }
+
+          if (i < lines.length) i++;
+
+          html.push(
+            '<div class="code-block">' +
+              '<div class="code-header"><span>' +
+              escapeHtml(language || "Code") +
+              '</span><button type="button" class="secondary small copy-code">' +
+              'Copy code</button></div><pre><code>' +
+              escapeHtml(code.join("\n")) +
+              '</code></pre></div>'
+          );
+          continue;
+        }
+
+        const heading = line.match(/^(#{1,3})\s+(.+)/);
+        if (heading) {
+          const level = heading[1].length;
+          html.push("<h" + level + ">" +
+            renderInline(heading[2]) + "</h" + level + ">");
+          i++;
+          continue;
+        }
+
+        if (/^\s*[-*]\s+/.test(line)) {
+          const items = [];
+          while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+            items.push("<li>" +
+              renderInline(lines[i++].replace(/^\s*[-*]\s+/, "")) +
+              "</li>");
+          }
+          html.push("<ul>" + items.join("") + "</ul>");
+          continue;
+        }
+
+        if (/^\s*\d+\.\s+/.test(line)) {
+          const items = [];
+          while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+            items.push("<li>" +
+              renderInline(lines[i++].replace(/^\s*\d+\.\s+/, "")) +
+              "</li>");
+          }
+          html.push("<ol>" + items.join("") + "</ol>");
+          continue;
+        }
+
+        if (/^\s*>\s?/.test(line)) {
+          const quote = [];
+          while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+            quote.push(lines[i++].replace(/^\s*>\s?/, ""));
+          }
+          html.push("<blockquote>" +
+            renderInline(quote.join(" ")) + "</blockquote>");
+          continue;
+        }
+
+        const paragraph = [];
+        while (i < lines.length &&
+          lines[i].trim() && !isBlockStart(lines[i])) {
+          paragraph.push(lines[i++]);
+        }
+
+        if (paragraph.length) {
+          html.push("<p>" +
+            paragraph.map(renderInline).join("<br>") +
+            "</p>");
+        } else {
+          i++;
+        }
+      }
+
+      return '<div class="markdown">' + html.join("") + "</div>";
+    }
+
     function addMessage(role, content) {
-      const item = document.createElement("div");
+      const item = document.createElement("article");
       item.className = "message " + role;
 
       const label = document.createElement("div");
@@ -222,8 +437,39 @@
       chat.appendChild(item);
       chat.scrollTop = chat.scrollHeight;
 
-      return bubble;
+      return { item, bubble };
     }
+
+    async function copyText(value, button) {
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = "Copy failed";
+      }
+    }
+
+    function addResponseCopy(item, answer) {
+      const tools = document.createElement("div");
+      tools.className = "message-tools";
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "secondary small";
+      button.textContent = "Copy response";
+      button.addEventListener("click", () => copyText(answer, button));
+
+      tools.appendChild(button);
+      item.appendChild(tools);
+    }
+
+    chat.addEventListener("click", event => {
+      const button = event.target.closest(".copy-code");
+      if (!button) return;
+
+      const code = button.closest(".code-block").querySelector("code");
+      copyText(code.textContent, button);
+    });
 
     async function streamAnswer(response, bubble) {
       if (!response.body) {
@@ -251,14 +497,13 @@
         const content = event.choices?.[0]?.delta?.content;
         if (typeof content === "string") {
           answer += content;
-          bubble.textContent = answer;
+          bubble.innerHTML = renderMarkdown(answer);
           chat.scrollTop = chat.scrollHeight;
         }
       }
 
       while (true) {
         const { value, done } = await reader.read();
-
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
@@ -271,7 +516,9 @@
       buffer += decoder.decode();
       if (buffer.trim()) processLine(buffer);
 
-      if (!answer) throw new Error("The model returned no text.");
+      if (!answer) {
+        throw new Error("The model returned no text.");
+      }
 
       return answer;
     }
@@ -282,13 +529,14 @@
 
       busy = true;
       send.disabled = true;
+      clear.disabled = true;
       input.disabled = true;
 
       addMessage("user", prompt);
       messages.push({ role: "user", content: prompt });
       input.value = "";
 
-      const bubble = addMessage("assistant", "Thinking...");
+      const { item, bubble } = addMessage("assistant", "Thinking...");
 
       try {
         const response = await fetch("/api/v1/chat/completions", {
@@ -296,7 +544,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             model: "Qwen/Qwen2.5-1.5B-Instruct",
-            messages: messages,
+            messages,
             temperature: 0.2,
             max_tokens: 256,
             stream: true
@@ -311,13 +559,15 @@
         bubble.textContent = "";
         const answer = await streamAnswer(response, bubble);
         messages.push({ role: "assistant", content: answer });
+        addResponseCopy(item, answer);
       } catch (error) {
-        messages.pop();
-        bubble.parentElement.classList.add("error");
+        if (messages.at(-1)?.role === "user") messages.pop();
+        item.classList.add("error");
         bubble.textContent = "Request failed: " + error.message;
       } finally {
         busy = false;
         send.disabled = false;
+        clear.disabled = false;
         input.disabled = false;
         input.focus();
         chat.scrollTop = chat.scrollHeight;
@@ -334,6 +584,23 @@
         event.preventDefault();
         form.requestSubmit();
       }
+    });
+
+    clear.addEventListener("click", () => {
+      if (busy) return;
+
+      messages.length = 0;
+      chat.replaceChildren();
+
+      const welcome = document.createElement("article");
+      welcome.className = "message";
+      welcome.innerHTML =
+        '<div class="role">ModelOps</div>' +
+        '<div class="bubble">Your chat is ready. Enter a message below to get started.</div>';
+
+      chat.appendChild(welcome);
+      input.value = "";
+      input.focus();
     });
   </script>
 </body>
