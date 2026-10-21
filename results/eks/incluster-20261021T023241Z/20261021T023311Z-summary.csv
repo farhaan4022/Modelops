@@ -1,0 +1,5 @@
+concurrency,requests,successful,failed,duration_s,requests_per_s,output_tokens_per_s,mean_latency_s,p95_latency_s,mean_ttft_s,p95_ttft_s,peak_running,peak_waiting
+1,24,24,0,30.573,0.785,75.362,1.273,1.275,0.021,0.022,1.0,0.0
+4,24,24,0,7.877,3.047,292.488,1.312,1.319,0.034,0.04,4.0,0.0
+8,24,24,0,7.872,3.049,292.7,2.404,2.634,1.123,1.352,4.0,4.0
+16,24,24,0,7.885,3.044,292.184,3.941,5.257,2.66,3.974,4.0,12.0
